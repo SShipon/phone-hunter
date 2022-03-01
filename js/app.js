@@ -9,7 +9,7 @@ const searchPhone = () => {
         .then((res) => res.json())
         .then((data) => {
             if (data.data.length == 0) {
-                alert('thiss is error')
+                alert('Page Not Found 404')
             }
             else {
                displayPhoneResult(data.data.slice(0, 20)); 
@@ -35,8 +35,8 @@ const displayPhoneResult = (phones) => {
              <div class="card h-100 shadow-lg p-2">
         <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
          <div class="card-body">
-         <h5 class="card-title">${phone.brand}</h5>
-         <h6 class="card-title">${phone.phone_name}</h6>
+         <h5 class="card-title"> Brand: ${phone.brand}</h5>
+         <h6 class="card-title">Phone Name:${phone.phone_name}</h6>
          <p class="card-text"></p>
           <button onClick="moreDetails('${phone.slug}')" class="btn btn-info text-white">Details</button>
       </div>
@@ -57,7 +57,7 @@ const moreDetails = (id) => {
 
 const showInfo = (phoneIdDetails) => {
   //console.log(information.mainFeatures.chipSet);
-  const phoneDetails = document.getElementById("info-container");
+  const phoneDetails = document.getElementById("phone-details");
     phoneDetails.innerHTML = "";
     phoneDetails.textContent=''
   const div = document.createElement("div");
