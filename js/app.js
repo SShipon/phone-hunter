@@ -1,25 +1,38 @@
 const searchPhone = () => {
     const searchFiled = document.getElementById('search-field')
     const searchText = searchFiled.value;
+    searchFiled.value = '';
+    
     //console.log(searchText);
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     fetch(url)
-      .then((res) => res.json())
-      .then((data) => displayPhoneResult(data.data.slice(0, 20)));
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.data.length == 0) {
+                alert('thiss is error')
+            }
+            else {
+               displayPhoneResult(data.data.slice(0, 20)); 
+            }
+            
+        });
 };
 
 const displayPhoneResult = (phones) => {
-    //console.log(phone);
-    const searchPhoneResult = document.getElementById("search-result");
-    searchPhoneResult.innerHTML = '';
-    
-     //console.log(searchResult);
-    phones.forEach(phone => {
-        console.log(phone);
-        const div = document.createElement('div')
-        div.classList.add('col')
-        div.innerHTML = `
-             <div class="card h-100">
+  //console.log(phones);
+  const searchPhoneResult = document.getElementById("search-result");
+    searchPhoneResult.innerHTML = "";
+     const phoneTextError = document.getElementById("search-field");
+     const searchText = phoneTextError.value;
+   
+  //console.log(searchResult);
+
+    phones.forEach((phone) => {
+      console.log(phone);
+      const div = document.createElement("div");
+      div.classList.add("col");
+      div.innerHTML = `
+             <div class="card h-100 shadow-lg p-2">
         <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
          <div class="card-body">
          <h5 class="card-title">${phone.brand}</h5>
@@ -29,33 +42,40 @@ const displayPhoneResult = (phones) => {
       </div>
     </div>
         `;
-         searchPhoneResult.appendChild(div);
+      searchPhoneResult.appendChild(div);
     });
-};  
+ 
+};
+    
  
 
 const moreDetails = (id) => {
   fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
     .then((res) => res.json())
-    .then((data) => myPhoneDetails(data.data));
+    .then((data) => showInfo(data.data));
 };
 
-
-
-const myPhoneDetails = (phoneIdDetails) => {
-
-  const phoneDetailArea = document.getElementById("phoneId-detail");
-  phoneDetailArea.innerHTML = "";
+const showInfo = (phoneIdDetails) => {
+  //console.log(information.mainFeatures.chipSet);
+  const phoneDetails = document.getElementById("info-container");
+    phoneDetails.innerHTML = "";
+    phoneDetails.textContent=''
   const div = document.createElement("div");
-  div.classList.add("card");
+  div.classList.add("col");
   div.innerHTML = ` 
-      
-         <img src="${phoneIdDetails.image}" class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">${phoneIdDetails.brand}</h5>
-        <p class="card-text">${phoneIdDetails.brand.slice(0, 250)}</p>
-       <a href="${phoneIdDetails.brand}"class="btn btn-primary">Click now</a>
-     </div>
+  <div class="card p-3 shadow-lg">
+  <img width="100px"  src="${phoneIdDetails.image}" class="card-img-top img-fluid" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Brand:${phoneIdDetails.brand}</h5>
+    <p class="card-text"> Model: ${phoneIdDetails.name}</p>
+    <p class="card-text"> ChipSet: ${phoneIdDetails.mainFeatures.chipSet}</p>
+    <p class="card-text"> Display Size: ${phoneIdDetails.mainFeatures.displaySize}</p>
+    <p class="card-text"> Memory: ${phoneIdDetails.mainFeatures.memory}</p>
+    <p class="card-text"> Release Date: ${phoneIdDetails.releaseDate?phoneIdDetails.releaseDate:'Not Found'}</p>
+    <p class="card-text"> Bluetooth: ${phoneIdDetails.others.Bluetooth}</p>
+    <p class="card-text"> USB: ${phoneIdDetails.others.USB}</p>
+  </div>
+</div>
   `;
-  phoneDetailArea.appendChild(div);
+  phoneDetails.appendChild(div);
 };
