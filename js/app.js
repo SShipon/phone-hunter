@@ -11,7 +11,9 @@ const searchField = () => {
 // display search result
 
 const displaySearchResult = (phone) => {
-  const displaySearchPhoneResult = document.getElementById("search-phone-result");
+  const displaySearchPhoneResult = document.getElementById(
+    "search-phone-result"
+  );
   const errorHandel = document.getElementById("error-handel");
   const phoneDetails = document.getElementById("phone-details");
   phoneDetails.textContent = "";
@@ -20,8 +22,8 @@ const displaySearchResult = (phone) => {
   if (phone.length == 0) {
     const error404 = document.createElement("div");
     error404.innerHTML = `
-      <h1 class="text-center text-danger"> result Not Found 404 </h1>
-      <p class="text-center text-danger">Search your valid</p>
+      <h1 class="text-center text-danger"> result Not Found 404 !!!</h1>
+      <p class="text-center text-danger">You find the right information !!!</p>
       `;
     errorHandel.appendChild(error404);
   } else {
@@ -70,11 +72,17 @@ const displayPhonesDetails = (data) => {
     <div class="col-md-8 col-sm-12">
       <div id="others" class="card-body">
         <h5 class="card-title">Brand: ${data.brand}</h5>
-        <p style="margin-bottom:-1px;" class="card-text">chipSet: ${data.mainFeatures.chipSet}<br>
+        <p style="margin-bottom:-1px;" class="card-text">chipSet: ${
+          data.mainFeatures.chipSet
+        }<br>
         displaySize: ${data.mainFeatures.displaySize}<br>
         memory: ${data.mainFeatures.memory}</p>
-         <h5 class="card-title">Release Date: ${data.releaseDate?data.releaseDate:'Not release date'}</h5>
-        <p id="text-content" onclick="othersDetails('${data.slug}')" class="text-primary">others</p>
+         <h5 class="card-title">Release Date: ${
+           data.releaseDate ? data.releaseDate : "Not release date "
+         }</h5>
+        <h5 id="text-content" onclick="othersDetails('${
+          data.slug
+        }')" class="text-primary">others: <i class="fas fa-angle-double-right"></i></h5>
 
       </div>
     </div>
