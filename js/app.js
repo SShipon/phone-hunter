@@ -35,8 +35,8 @@ const displaySearchResult = (phone) => {
         <div class="card h-100 shadow-lg p-4">
                     <img src="${data.image}" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">${data.brand}</h5>
-                      <h5 class="card-title">${data.phone_name}</h5>
+                      <h5 class="card-title">Brand: ${data.brand}</h5>
+                      <h5 class="card-title">Name: ${data.phone_name}</h5>
                       <section id="phone-details">
                       </section>
 
@@ -72,14 +72,17 @@ const displayPhonesDetails = (data) => {
     <div class="col-md-8 col-sm-12">
       <div id="others" class="card-body">
         <h5 class="card-title">Brand: ${data.brand}</h5>
-        <p style="margin-bottom:-1px;" class="card-text">chipSet: ${
+        <p style="margin-bottom:-1px;" class="card-text text-bold">chipSet: ${
           data.mainFeatures.chipSet
         }<br>
         displaySize: ${data.mainFeatures.displaySize}<br>
         memory: ${data.mainFeatures.memory}</p>
+         Sensors: ${data.mainFeatures.sensors}
          <h5 class="card-title">Release Date: ${
            data.releaseDate ? data.releaseDate : "Not release date "
          }</h5>
+         <p></p>
+         
         <h5 id="text-content" onclick="othersDetails('${
           data.slug
         }')" class="text-primary">others: <i class="fas fa-angle-double-right"></i></h5>
@@ -104,12 +107,21 @@ const phoneOthersDetails = (others) => {
   textContent.style.display = "none";
   const div = document.createElement("div");
   div.innerHTML = `
-    <p style="margin-bottom:-1px;">GPS: ${others.data.others.GPS}</p>
-    <p style="margin-bottom:-1px;">NFC: ${others.data.others.NFC}</p>
-    <p style="margin-bottom:-1px;">Radio: ${others.data.others.Radio}</p>
-    <p style="margin-bottom:-1px;">Bluetooth: ${others.data.others.Bluetooth}</p>
-    <p style="margin-bottom:-1px;">USB: ${others.data.others.USB}</p>
-    <p style="margin-bottom:-1px;">WLAN: ${others.data.others.WLAN}</p>
+    <p style="margin-bottom:-1px;">GPS: ${
+      others.data.others.GPS}</p>
+    <p style="margin-bottom:-1px;">NFC: ${
+      others.data.others.NFC}</p>
+    <p style="margin-bottom:-1px;">Radio: ${
+      others.data.others.Radio}</p>
+    <p style="margin-bottom:-1px;">Bluetooth: ${
+      others.data.others.Bluetooth
+    }</p>
+    <p style="margin-bottom:-1px;">USB: ${
+      others.data.others.USB
+    }</p>
+    <p style="margin-bottom:-1px;">WLAN: ${
+      others.data.others.WLAN 
+    }</p>
     
     `;
   moreOthersDetails.appendChild(div);
