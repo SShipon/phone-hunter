@@ -74,7 +74,7 @@ const displayPhonesDetails = (data) => {
       <div id="others">
         <h6>Brand: ${data.brand}</h6>
         <h6>Name: ${data.name}</h6>
-        <h6> releaseDate: ${data.releaseDate}</h6>
+        <h6> releaseDate: ${data.releaseDate?data.releaseDate:'not release date'}</h6>
         <h5 id="text-content" onclick="othersDetails('${data.slug}')" class="text-primary">others: <i class="fas fa-angle-double-right"></i></h5>
         
       </div>
