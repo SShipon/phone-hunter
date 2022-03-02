@@ -1,81 +1,107 @@
-const searchPhone = () => {
-    const searchFiled = document.getElementById('search-field')
-    const searchText = searchFiled.value;
-    searchFiled.value = '';
-    
-    //console.log(searchText);
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-    fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.data.length == 0) {
-                alert('Page Not Found 404')
-            }
-            else {
-               displayPhoneResult(data.data.slice(0, 20)); 
-            }
-            
-        });
+const searchField = () => {
+  const searchFieldInput = document.getElementById("search-field");
+  const searchText = searchFieldInput.value;
+  searchFieldInput.value = "";
+  const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displaySearchResult(data.data));
 };
 
-const displayPhoneResult = (phones) => {
-  //console.log(phones);
-  const searchPhoneResult = document.getElementById("search-result");
-    searchPhoneResult.innerHTML = "";
-     const phoneTextError = document.getElementById("search-field");
-     const searchText = phoneTextError.value;
-   
-  //console.log(searchResult);
+// display search result
 
-    phones.forEach((phone) => {
-      console.log(phone);
-      const div = document.createElement("div");
-      div.classList.add("col");
-      div.innerHTML = `
-             <div class="card h-100 shadow-lg p-2">
-        <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
-         <div class="card-body">
-         <h5 class="card-title"> Brand: ${phone.brand}</h5>
-         <h6 class="card-title">Phone Name:${phone.phone_name}</h6>
-         <p class="card-text"></p>
-          <button onClick="moreDetails('${phone.slug}')" class="btn btn-info text-white">Details</button>
+const displaySearchResult = (phone) => {
+  const displaySearchPhoneResult = document.getElementById("search-phone-result");
+  const errorHandel = document.getElementById("error-handel");
+  const phoneDetails = document.getElementById("phone-details");
+  phoneDetails.textContent = "";
+  displaySearchPhoneResult.textContent = "";
+  errorHandel.textContent = "";
+  if (phone.length == 0) {
+    const error404 = document.createElement("div");
+    error404.innerHTML = `
+      <h1 class="text-center text-danger"> result Not Found 404 </h1>
+      <p class="text-center text-danger">Search your valid</p>
+      `;
+    errorHandel.appendChild(error404);
+  } else {
+    const NewData = phone.slice(0, 20);
+    NewData.forEach((data) => {
+      const newDiv = document.createElement("div");
+      newDiv.classList.add("col");
+      newDiv.innerHTML = `
+        <div class="card h-100 shadow-lg p-4">
+                    <img src="${data.image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">${data.brand}</h5>
+                      <h5 class="card-title">${data.phone_name}</h5>
+                      <section id="phone-details">
+                      </section>
+
+                       <button onclick="phoneDetails('${data.slug}')" class="btn btn-info text-white">Details</button>
+                    </div>
+                  </div>
+        `;
+
+      displaySearchPhoneResult.appendChild(newDiv);
+    });
+  }
+};
+//phone details Section
+
+const phoneDetails = (phoneId) => {
+  const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displayPhonesDetails(data.data));
+};
+const displayPhonesDetails = (data) => {
+  // console.log(data);
+  const phoneDetails = document.getElementById("phone-details");
+  phoneDetails.textContent = "";
+  const div = document.createElement("div");
+  div.innerHTML = `
+  <div class="card mb-3 shadow-lg p-4" >
+  <h3 class="text-center text-primary">Product Information</h3>
+  <div class="row row-cols-1 row-cols-sm-2 g-0">
+    <div class="col-md-4 col-sm-12">
+      <img src="${data.image}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8 col-sm-12">
+      <div id="others" class="card-body">
+        <h5 class="card-title">${data.brand}</h5>
+        <p style="margin-bottom:-1px;" class="card-text">chipSet: ${data.mainFeatures.chipSet}<br>
+        displaySize: ${data.mainFeatures.displaySize}<br>
+        memory: ${data.mainFeatures.memory}</p>
+        <p id="text-content" onclick="othersDetails('${data.slug}')" class="text-primary">others</p>
+
       </div>
     </div>
-        `;
-      searchPhoneResult.appendChild(div);
-    });
- 
-};
-    
- 
-
-const moreDetails = (id) => {
-  fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
-    .then((res) => res.json())
-    .then((data) => showInfo(data.data));
-};
-
-const showInfo = (phoneIdDetails) => {
-  //console.log(information.mainFeatures.chipSet);
-  const phoneDetails = document.getElementById("phone-details");
-    phoneDetails.innerHTML = "";
-    phoneDetails.textContent=''
-  const div = document.createElement("div");
-  div.classList.add("col");
-  div.innerHTML = ` 
-  <div class="card p-3 shadow-lg">
-  <img width="100px"  src="${phoneIdDetails.image}" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Brand:${phoneIdDetails.brand}</h5>
-    <p class="card-text"> Model: ${phoneIdDetails.name}</p>
-    <p class="card-text"> ChipSet: ${phoneIdDetails.mainFeatures.chipSet}</p>
-    <p class="card-text"> Display Size: ${phoneIdDetails.mainFeatures.displaySize}</p>
-    <p class="card-text"> Memory: ${phoneIdDetails.mainFeatures.memory}</p>
-    <p class="card-text"> Release Date: ${phoneIdDetails.releaseDate?phoneIdDetails.releaseDate:'Not Found'}</p>
-    <p class="card-text"> Bluetooth: ${phoneIdDetails.others.Bluetooth}</p>
-    <p class="card-text"> USB: ${phoneIdDetails.others.USB}</p>
   </div>
 </div>
   `;
   phoneDetails.appendChild(div);
+};
+
+const othersDetails = (phoneId) => {
+  const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => phoneOthersDetails(data));
+};
+const phoneOthersDetails = (others) => {
+  const moreOthersDetails = document.getElementById("others");
+  const textContent = document.getElementById("text-content");
+  textContent.style.display = "none";
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <p style="margin-bottom:-1px;">GPS: ${others.data.others.GPS}</p>
+    <p style="margin-bottom:-1px;">NFC: ${others.data.others.NFC}</p>
+    <p style="margin-bottom:-1px;">Radio: ${others.data.others.Radio}</p>
+    <p style="margin-bottom:-1px;">Bluetooth: ${others.data.others.Bluetooth}</p>
+    <p style="margin-bottom:-1px;">USB: ${others.data.others.USB}</p>
+    <p style="margin-bottom:-1px;">WLAN: ${others.data.others.WLAN}</p>
+    
+    `;
+  moreOthersDetails.appendChild(div);
 };
