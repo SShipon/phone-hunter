@@ -75,8 +75,12 @@ const displayPhonesDetails = (data) => {
         <p style="margin-bottom:-1px;" class="card-text text-bold">ChipSet: ${
           data.mainFeatures.chipSet
         }<br>
-        DisplaySize: ${data.mainFeatures.displaySize}<br>
+        DisplaySize: ${data.mainFeatures.displaySize}
+        <br>
         memory: ${data.mainFeatures.memory}</p>
+        <br>
+         Storage:${data.mainFeatures.storage}
+         <br>
          Sensors: ${data.mainFeatures.sensors}
          <h5 class="card-title">Release Date: ${
            data.releaseDate ? data.releaseDate : "Not release date "
