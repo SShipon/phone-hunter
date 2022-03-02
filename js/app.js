@@ -69,10 +69,11 @@ const displayPhonesDetails = (data) => {
     </div>
     <div class="col-md-8 col-sm-12">
       <div id="others" class="card-body">
-        <h5 class="card-title">${data.brand}</h5>
+        <h5 class="card-title">Brand: ${data.brand}</h5>
         <p style="margin-bottom:-1px;" class="card-text">chipSet: ${data.mainFeatures.chipSet}<br>
         displaySize: ${data.mainFeatures.displaySize}<br>
         memory: ${data.mainFeatures.memory}</p>
+         <h5 class="card-title">Release Date: ${data.releaseDate?data.releaseDate:'Not release date'}</h5>
         <p id="text-content" onclick="othersDetails('${data.slug}')" class="text-primary">others</p>
 
       </div>
