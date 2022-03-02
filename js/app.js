@@ -102,7 +102,8 @@ const phoneOthersDetails = (others) => {
   const div = document.createElement("div");
   div.innerHTML = `
     <h6 class="text-primary">Main Features Info</h6>
-    <h6>ChipSet: ${others.data.mainFeatures?.chipSet}</p>
+    <h6>ChipSet: ${others.data.mainFeatures?.chipSet}</h6>
+    <h6>Sensor: ${others.data.mainFeatures.sensors}</h6>
     <h6>Memory: ${others.data.mainFeatures?.memory}</h6>
     <h6>DisplaySize: ${others.data.mainFeatures?.displaySize}</p>
     <h6>DisplaySize: ${others.data.mainFeatures?.sensors}</p>
