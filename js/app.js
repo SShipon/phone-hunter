@@ -107,21 +107,12 @@ const phoneOthersDetails = (others) => {
   textContent.style.display = "none";
   const div = document.createElement("div");
   div.innerHTML = `
-    <p style="margin-bottom:-1px;">GPS: ${
-      others.data.others.GPS}</p>
-    <p style="margin-bottom:-1px;">NFC: ${
-      others.data.others.NFC}</p>
-    <p style="margin-bottom:-1px;">Radio: ${
-      others.data.others.Radio}</p>
-    <p style="margin-bottom:-1px;">Bluetooth: ${
-      others.data.others.Bluetooth
-    }</p>
-    <p style="margin-bottom:-1px;">USB: ${
-      others.data.others.USB
-    }</p>
-    <p style="margin-bottom:-1px;">WLAN: ${
-      others.data.others.WLAN 
-    }</p>
+    <p style="margin-bottom:-1px;">GPS: ${others.data.others.GPS}</p>
+    <p style="margin-bottom:-1px;">NFC: ${others.data.others.NFC}</p>
+    <p style="margin-bottom:-1px;">Radio: ${others.data.others.Radio}</p>
+    <p style="margin-bottom:-1px;">Bluetooth: ${others.data.others.Bluetooth}</p>
+    <p style="margin-bottom:-1px;">USB: ${others.data.others.USB}</p>
+    <p style="margin-bottom:-1px;">WLAN: ${others.data.others.WLAN}</p>
     
     `;
   moreOthersDetails.appendChild(div);
