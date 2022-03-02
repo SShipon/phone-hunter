@@ -72,10 +72,10 @@ const displayPhonesDetails = (data) => {
     <div class="col-md-8 col-sm-12">
       <div id="others" class="card-body">
         <h5 class="card-title">Brand: ${data.brand}</h5>
-        <p style="margin-bottom:-1px;" class="card-text text-bold">chipSet: ${
+        <p style="margin-bottom:-1px;" class="card-text text-bold">ChipSet: ${
           data.mainFeatures.chipSet
         }<br>
-        displaySize: ${data.mainFeatures.displaySize}<br>
+        DisplaySize: ${data.mainFeatures.displaySize}<br>
         memory: ${data.mainFeatures.memory}</p>
          Sensors: ${data.mainFeatures.sensors}
          <h5 class="card-title">Release Date: ${
